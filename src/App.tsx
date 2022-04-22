@@ -1,9 +1,9 @@
-import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, TextField, Typography } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ElectoralUnit } from "./components/electoralUnit";
+import { NewElectoralUnit } from "./components/newElectoralUnit";
 import { NewParty } from "./components/newParty";
 import {
   INITIAL_NUM_ELECTORAL_UNITS,
@@ -69,16 +69,10 @@ function App() {
         ))}
         <StyledTr>
           <StyledTd>
-            <TextField
-              size="small"
-              label="Мандати"
-              type="number"
-              defaultValue={INITIAL_NUM_ELECTORAL_UNIT_SEATS}
-              style={{ width: "150px" }}
+            <NewElectoralUnit
+              setElectoralUnitSeats={setElectoralUnitsSeats}
+              setVotes={setVotes}
             />
-            <IconButton color="success">
-              <AddIcon />
-            </IconButton>
           </StyledTd>
           <td colSpan={parties.length}>&nbsp;</td>
         </StyledTr>
