@@ -31,6 +31,17 @@ function App() {
     distributeSeats(electoralUnitVotes, electoralUnitsSeats[idx])
   );
   const totalSeatsPerParty = calcTotalSeatsPerParty(finalSeats);
+
+  const deleteParty = (idx: number) => () => {
+    setParties((prev) => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
+    setVotes((prev) =>
+      prev.map((electoralUnitVotes) => [
+        ...electoralUnitVotes.slice(0, idx),
+        ...electoralUnitVotes.slice(idx + 1),
+      ])
+    );
+  };
+
   return (
     <>
       <Typography variant="h3">Гласови</Typography>
@@ -45,7 +56,7 @@ function App() {
                 <IconButton>
                   <EditIcon />
                 </IconButton>
-                <IconButton color="error">
+                <IconButton color="error" onClick={deleteParty(idx)}>
                   <DeleteIcon />
                 </IconButton>
               </Typography>
