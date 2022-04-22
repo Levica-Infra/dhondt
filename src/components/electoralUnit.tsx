@@ -5,12 +5,14 @@ import { StyledTd } from "../styled/tables";
 
 interface ElectoralUnitProps {
   idx: number;
+  seats: number;
   numParties: number;
   setVotes: React.Dispatch<React.SetStateAction<number[][]>>;
 }
 
 export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   idx,
+  seats,
   numParties,
   setVotes,
 }) => {
@@ -32,7 +34,9 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   return (
     <>
       <StyledTd>
-        <Typography variant="overline">Изборна единица {idx + 1}</Typography>
+        <Typography variant="overline">
+          Изборна единица {idx + 1} ({seats} мандати)
+        </Typography>
         <IconButton color="error">
           <DeleteIcon />
         </IconButton>

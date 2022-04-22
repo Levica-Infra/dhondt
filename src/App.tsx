@@ -4,7 +4,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, TextField, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ElectoralUnit } from "./components/electoralUnit";
-import { INITIAL_NUM_ELECTORAL_UNITS } from "./constants/electoralUnits";
+import { NewParty } from "./components/newParty";
+import {
+  INITIAL_NUM_ELECTORAL_UNITS,
+  INITIAL_NUM_ELECTORAL_UNIT_SEATS,
+} from "./constants/electoralUnits";
 import { INITIAL_PARTIES } from "./constants/parties";
 import { StyledTd, StyledTh, StyledTr } from "./styled/tables";
 import { calcTotalSeatsPerParty, distributeSeats } from "./utils/dhondt";
@@ -14,7 +18,9 @@ const MemoElectoralUnit = memo(ElectoralUnit);
 function App() {
   const [parties, setParties] = useState<string[]>([...INITIAL_PARTIES]);
   const [electoralUnitsSeats, setElectoralUnitsSeats] = useState<number[]>(
-    new Array(INITIAL_NUM_ELECTORAL_UNITS).fill(20)
+    new Array(INITIAL_NUM_ELECTORAL_UNITS).fill(
+      INITIAL_NUM_ELECTORAL_UNIT_SEATS
+    )
   );
   const [votes, setVotes] = useState<number[][]>(
     new Array(INITIAL_NUM_ELECTORAL_UNITS).fill(
@@ -46,15 +52,7 @@ function App() {
             </StyledTh>
           ))}
           <StyledTh>
-            <TextField
-              size="small"
-              label="Партија"
-              style={{ width: "150px" }}
-            />
-
-            <IconButton color="success">
-              <AddIcon />
-            </IconButton>
+            <NewParty setParties={setParties} setVotes={setVotes} />
           </StyledTh>
         </StyledTr>
         {votes.map((_, idx) => (
@@ -62,6 +60,7 @@ function App() {
             <MemoElectoralUnit
               key={idx}
               idx={idx}
+              seats={electoralUnitsSeats[idx]}
               numParties={parties.length}
               setVotes={setVotes}
             />
@@ -74,7 +73,7 @@ function App() {
               size="small"
               label="Мандати"
               type="number"
-              defaultValue={0}
+              defaultValue={INITIAL_NUM_ELECTORAL_UNIT_SEATS}
               style={{ width: "150px" }}
             />
             <IconButton color="success">
