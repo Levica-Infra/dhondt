@@ -2,7 +2,7 @@
   "name": "dhondt",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dhondt.github.io",
+  "homepage": "https://jovan-krajevski.github.io/dhondt/",
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
