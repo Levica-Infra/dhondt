@@ -46,9 +46,8 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
         </IconButton>
       </StyledTd>
       {new Array(numParties).fill(0).map((_, idx) => (
-        <StyledTd>
+        <StyledTd key={idx}>
           <TextField
-            key={idx}
             id={idx.toString()}
             type="number"
             defaultValue={0}

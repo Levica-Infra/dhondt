@@ -37,88 +37,91 @@ function App() {
       <Typography variant="h3">Гласови</Typography>
       <br />
       <table>
-        <StyledTr>
-          <th>&nbsp;</th>
-          {parties.map((party, idx) => (
+        <thead>
+          <StyledTr>
+            <th>&nbsp;</th>
+            {parties.map((party, idx) => (
+              <StyledTh key={idx}>
+                <MemoPartyHeader
+                  party={party}
+                  idx={idx}
+                  setParties={setParties}
+                  setVotes={setVotes}
+                />
+              </StyledTh>
+            ))}
             <StyledTh>
-              <MemoPartyHeader
-                party={party}
+              <NewParty setParties={setParties} setVotes={setVotes} />
+            </StyledTh>
+          </StyledTr>
+        </thead>
+        <tbody>
+          {votes.map((_, idx) => (
+            <StyledTr key={idx}>
+              <MemoElectoralUnit
                 idx={idx}
-                setParties={setParties}
+                seats={electoralUnitsSeats[idx]}
+                numParties={parties.length}
                 setVotes={setVotes}
               />
-            </StyledTh>
+              {!idx && <td rowSpan={votes.length}>&nbsp;</td>}
+            </StyledTr>
           ))}
-          <StyledTh>
-            <NewParty setParties={setParties} setVotes={setVotes} />
-          </StyledTh>
-        </StyledTr>
-        {votes.map((_, idx) => (
           <StyledTr>
-            <MemoElectoralUnit
-              key={idx}
-              idx={idx}
-              seats={electoralUnitsSeats[idx]}
-              numParties={parties.length}
-              setVotes={setVotes}
-            />
-            {!idx && <td rowSpan={votes.length}>&nbsp;</td>}
+            <StyledTd>
+              <NewElectoralUnit
+                setElectoralUnitSeats={setElectoralUnitsSeats}
+                setVotes={setVotes}
+              />
+            </StyledTd>
+            <td colSpan={parties.length}>&nbsp;</td>
           </StyledTr>
-        ))}
-        <StyledTr>
-          <StyledTd>
-            <NewElectoralUnit
-              setElectoralUnitSeats={setElectoralUnitsSeats}
-              setVotes={setVotes}
-            />
-          </StyledTd>
-          <td colSpan={parties.length}>&nbsp;</td>
-        </StyledTr>
+        </tbody>
       </table>
       <br />
       <Typography variant="h3">Освоени мандати</Typography>
       <br />
       <table>
-        <StyledTr>
-          <th>&nbsp;</th>
-          {parties.map((party, idx) => (
-            <StyledTh>
-              <Typography key={idx} variant="overline">
-                {party}
-              </Typography>
-            </StyledTh>
+        <thead>
+          <StyledTr>
+            <th>&nbsp;</th>
+            {parties.map((party, idx) => (
+              <StyledTh key={idx}>
+                <Typography variant="overline">{party}</Typography>
+              </StyledTh>
+            ))}
+          </StyledTr>
+        </thead>
+        <tbody>
+          {finalSeats.map((electoralUnitFinalSeats, electoralUnitIdx) => (
+            <StyledTr key={electoralUnitIdx}>
+              <StyledTd>
+                <Typography variant="overline">
+                  Изборна единица {electoralUnitIdx + 1}
+                </Typography>
+              </StyledTd>
+              {electoralUnitFinalSeats.map((seats, idx) => (
+                <StyledTd key={idx}>
+                  <Typography variant="overline">{seats}</Typography>
+                </StyledTd>
+              ))}
+            </StyledTr>
           ))}
-        </StyledTr>
-        {finalSeats.map((electoralUnitFinalSeats, electoralUnitIdx) => (
           <StyledTr>
             <StyledTd>
-              <Typography variant="overline">
-                Изборна единица {electoralUnitIdx + 1}
+              <Typography variant="overline" fontWeight={"bold"}>
+                Вкупно
               </Typography>
             </StyledTd>
-            {electoralUnitFinalSeats.map((seats, idx) => (
-              <StyledTd>
-                <Typography key={idx} variant="overline">
-                  {seats}
+            {totalSeatsPerParty.map((totalSeats, idx) => (
+              <StyledTd key={idx}>
+                <Typography variant="overline" fontWeight={"bold"}>
+                  {totalSeats}
                 </Typography>
               </StyledTd>
             ))}
           </StyledTr>
-        ))}
-        <StyledTr>
-          <StyledTd>
-            <Typography variant="overline" fontWeight={"bold"}>
-              Вкупно
-            </Typography>
-          </StyledTd>
-          {totalSeatsPerParty.map((totalSeats) => (
-            <StyledTd>
-              <Typography variant="overline" fontWeight={"bold"}>
-                {totalSeats}
-              </Typography>
-            </StyledTd>
-          ))}
-        </StyledTr>
+        </tbody>
       </table>
     </>
   );
