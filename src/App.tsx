@@ -1,10 +1,9 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ElectoralUnit } from "./components/electoralUnit";
 import { NewElectoralUnit } from "./components/newElectoralUnit";
 import { NewParty } from "./components/newParty";
+import { PartyHeader } from "./components/partyHeader";
 import {
   INITIAL_NUM_ELECTORAL_UNITS,
   INITIAL_NUM_ELECTORAL_UNIT_SEATS,
@@ -14,6 +13,7 @@ import { StyledTd, StyledTh, StyledTr } from "./styled/tables";
 import { calcTotalSeatsPerParty, distributeSeats } from "./utils/dhondt";
 
 const MemoElectoralUnit = memo(ElectoralUnit);
+const MemoPartyHeader = memo(PartyHeader);
 
 function App() {
   const [parties, setParties] = useState<string[]>([...INITIAL_PARTIES]);
@@ -32,16 +32,6 @@ function App() {
   );
   const totalSeatsPerParty = calcTotalSeatsPerParty(finalSeats);
 
-  const deleteParty = (idx: number) => () => {
-    setParties((prev) => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
-    setVotes((prev) =>
-      prev.map((electoralUnitVotes) => [
-        ...electoralUnitVotes.slice(0, idx),
-        ...electoralUnitVotes.slice(idx + 1),
-      ])
-    );
-  };
-
   return (
     <>
       <Typography variant="h3">Гласови</Typography>
@@ -51,15 +41,12 @@ function App() {
           <th>&nbsp;</th>
           {parties.map((party, idx) => (
             <StyledTh>
-              <Typography key={idx} variant="overline">
-                {party}
-                <IconButton>
-                  <EditIcon />
-                </IconButton>
-                <IconButton color="error" onClick={deleteParty(idx)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Typography>
+              <MemoPartyHeader
+                party={party}
+                idx={idx}
+                setParties={setParties}
+                setVotes={setVotes}
+              />
             </StyledTh>
           ))}
           <StyledTh>

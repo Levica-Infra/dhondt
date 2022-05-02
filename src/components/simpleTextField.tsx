@@ -7,7 +7,7 @@ interface SimpleTextFieldProps {
   onChange: (
     evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void;
-  defaultValue?: number;
+  defaultValue?: number | string;
 }
 
 export const SimpleTextField: FC<SimpleTextFieldProps> = ({
@@ -21,7 +21,7 @@ export const SimpleTextField: FC<SimpleTextFieldProps> = ({
       size="small"
       label={label}
       type={isNumber ? "number" : "text"}
-      defaultValue={isNumber ? defaultValue : undefined}
+      defaultValue={defaultValue}
       style={{ width: "150px" }}
       onChange={onChange}
     />

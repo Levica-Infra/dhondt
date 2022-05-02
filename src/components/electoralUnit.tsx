@@ -1,4 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, TextField, Typography } from "@mui/material";
 import { FC, useCallback } from "react";
 import { StyledTd } from "../styled/tables";
@@ -37,6 +38,9 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
         <Typography variant="overline">
           Изборна единица {idx + 1} ({seats} мандати)
         </Typography>
+        <IconButton>
+          <EditIcon />
+        </IconButton>
         <IconButton color="error">
           <DeleteIcon />
         </IconButton>
