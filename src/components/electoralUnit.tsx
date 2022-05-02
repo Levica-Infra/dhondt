@@ -1,14 +1,16 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, TextField, Typography } from "@mui/material";
-import { FC, useCallback } from "react";
+import { TextField } from "@mui/material";
+import { FC, memo, useCallback } from "react";
 import { StyledTd } from "../styled/tables";
+import { ElectoralUnitHeader } from "./electoralUnitHeader";
+
+const MemoElectoralUnitHeader = memo(ElectoralUnitHeader);
 
 interface ElectoralUnitProps {
   idx: number;
   seats: number;
   numParties: number;
   setVotes: React.Dispatch<React.SetStateAction<number[][]>>;
+  setElectoralUnitsSeats: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const ElectoralUnit: FC<ElectoralUnitProps> = ({
@@ -16,6 +18,7 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   seats,
   numParties,
   setVotes,
+  setElectoralUnitsSeats,
 }) => {
   const handleChangeVotes = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -35,15 +38,12 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   return (
     <>
       <StyledTd>
-        <Typography variant="overline">
-          Изборна единица {idx + 1} ({seats} мандати)
-        </Typography>
-        <IconButton>
-          <EditIcon />
-        </IconButton>
-        <IconButton color="error">
-          <DeleteIcon />
-        </IconButton>
+        <MemoElectoralUnitHeader
+          seats={seats}
+          idx={idx}
+          setVotes={setVotes}
+          setElectoralUnitsSeats={setElectoralUnitsSeats}
+        />
       </StyledTd>
       {new Array(numParties).fill(0).map((_, idx) => (
         <StyledTd key={idx}>

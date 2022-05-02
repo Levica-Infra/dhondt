@@ -63,6 +63,7 @@ function App() {
                 seats={electoralUnitsSeats[idx]}
                 numParties={parties.length}
                 setVotes={setVotes}
+                setElectoralUnitsSeats={setElectoralUnitsSeats}
               />
               {!idx && <td rowSpan={votes.length}>&nbsp;</td>}
             </StyledTr>
