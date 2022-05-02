@@ -34,6 +34,7 @@ export const NewParty: FC<NewPartyProps> = ({ setParties, setVotes }) => {
         label="Партија"
         isNumber={false}
         onChange={editPartyName}
+        value={partyName}
       />
       <IconButton
         color="success"

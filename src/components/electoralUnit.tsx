@@ -1,14 +1,16 @@
-import { TextField } from "@mui/material";
 import { FC, memo, useCallback } from "react";
 import { StyledTd } from "../styled/tables";
 import { ElectoralUnitHeader } from "./electoralUnitHeader";
+import { SimpleTextField } from "./simpleTextField";
 
 const MemoElectoralUnitHeader = memo(ElectoralUnitHeader);
+const MemoSimpleTextField = memo(SimpleTextField);
 
 interface ElectoralUnitProps {
   idx: number;
   seats: number;
   numParties: number;
+  votes: number[][];
   setVotes: React.Dispatch<React.SetStateAction<number[][]>>;
   setElectoralUnitsSeats: React.Dispatch<React.SetStateAction<number[]>>;
 }
@@ -17,6 +19,7 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   idx,
   seats,
   numParties,
+  votes,
   setVotes,
   setElectoralUnitsSeats,
 }) => {
@@ -45,16 +48,14 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
           setElectoralUnitsSeats={setElectoralUnitsSeats}
         />
       </StyledTd>
-      {new Array(numParties).fill(0).map((_, idx) => (
-        <StyledTd key={idx}>
-          <TextField
-            id={idx.toString()}
-            type="number"
-            defaultValue={0}
-            size="small"
+      {new Array(numParties).fill(0).map((_, partyIdx) => (
+        <StyledTd key={partyIdx}>
+          <MemoSimpleTextField
+            isNumber={true}
+            value={votes[idx][partyIdx]}
             onChange={handleChangeVotes}
             label="Гласови"
-            style={{ width: "150px" }}
+            id={partyIdx}
           />
         </StyledTd>
       ))}

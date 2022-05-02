@@ -61,7 +61,7 @@ export const PartyHeader: FC<PartyHeaderProps> = ({
         label="Партија"
         isNumber={false}
         onChange={editPartyName}
-        defaultValue={party}
+        value={partyName}
       />
       <IconButton color="success" onClick={savePartyName}>
         <SaveIcon />

@@ -63,7 +63,7 @@ export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
         label="Мандати"
         isNumber={true}
         onChange={editSingleElectoralUnitSeats}
-        defaultValue={seats}
+        value={singleElectoralUnitSeats}
       />
       <IconButton color="success" onClick={saveSingleElectoralUnitSeats}>
         <SaveIcon />

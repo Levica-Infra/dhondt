@@ -62,6 +62,7 @@ function App() {
                 idx={idx}
                 seats={electoralUnitsSeats[idx]}
                 numParties={parties.length}
+                votes={votes}
                 setVotes={setVotes}
                 setElectoralUnitsSeats={setElectoralUnitsSeats}
               />

@@ -40,7 +40,7 @@ export const NewElectoralUnit: FC<NewElectoralUnitProps> = ({
         label="Мандати"
         isNumber={true}
         onChange={editNewElectoralUnitSeats}
-        defaultValue={INITIAL_NUM_ELECTORAL_UNIT_SEATS}
+        value={newElectoralUnitSeats}
       />
       <IconButton
         color="success"
