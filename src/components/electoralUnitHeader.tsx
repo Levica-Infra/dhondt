@@ -10,23 +10,30 @@ const MemoSimpleTextField = memo(SimpleTextField);
 
 interface ElectoralUnitHeaderProps {
   seats: number;
+  threshold: number;
   idx: number;
   setVotes: React.Dispatch<React.SetStateAction<number[][]>>;
   setElectoralUnitsSeats: React.Dispatch<React.SetStateAction<number[]>>;
+  setElectoralUnitsThresholds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
   seats,
+  threshold,
   idx,
   setVotes,
   setElectoralUnitsSeats,
+  setElectoralUnitsThresholds,
 }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [singleElectoralUnitSeats, setSingleElectoralUnitSeats] =
     useState<number>(seats);
+  const [singleElectoralUnitThreshold, setSingleElectoralUnitThreshold] =
+    useState<number>(threshold);
 
   const toggleEditMode = () => {
     setSingleElectoralUnitSeats(seats);
+    setSingleElectoralUnitThreshold(threshold);
     setEditMode((prev) => !prev);
   };
 
@@ -37,8 +44,19 @@ export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
     []
   );
 
+  const editSingleElectoralUnitThreshold = useCallback(
+    (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setSingleElectoralUnitThreshold(parseInt(evt.target.value, 10));
+    },
+    []
+  );
+
   const deleteElectoralUnit = (idx: number) => () => {
     setElectoralUnitsSeats((prev) => [
+      ...prev.slice(0, idx),
+      ...prev.slice(idx + 1),
+    ]);
+    setElectoralUnitsThresholds((prev) => [
       ...prev.slice(0, idx),
       ...prev.slice(idx + 1),
     ]);
@@ -49,6 +67,11 @@ export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
     setElectoralUnitsSeats((prev) => [
       ...prev.slice(0, idx),
       singleElectoralUnitSeats,
+      ...prev.slice(idx + 1),
+    ]);
+    setElectoralUnitsThresholds((prev) => [
+      ...prev.slice(0, idx),
+      singleElectoralUnitThreshold,
       ...prev.slice(idx + 1),
     ]);
     setEditMode(false);
@@ -65,6 +88,12 @@ export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
         onChange={editSingleElectoralUnitSeats}
         value={singleElectoralUnitSeats}
       />
+      <MemoSimpleTextField
+        label="Праг (%)"
+        isNumber={true}
+        onChange={editSingleElectoralUnitThreshold}
+        value={singleElectoralUnitThreshold}
+      />
       <IconButton color="success" onClick={saveSingleElectoralUnitSeats}>
         <SaveIcon />
       </IconButton>
@@ -74,7 +103,7 @@ export const ElectoralUnitHeader: FC<ElectoralUnitHeaderProps> = ({
     </span>
   ) : (
     <Typography variant="overline">
-      Изборна единица {idx + 1} ({seats} мандати)
+      Изборна единица {idx + 1} ({seats} мандати - {threshold}% праг)
       <IconButton onClick={toggleEditMode}>
         <EditIcon />
       </IconButton>

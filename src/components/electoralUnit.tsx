@@ -8,19 +8,23 @@ const MemoSimpleTextField = memo(SimpleTextField);
 interface ElectoralUnitProps {
   idx: number;
   seats: number;
+  threshold: number;
   numParties: number;
   votes: number[][];
   setVotes: React.Dispatch<React.SetStateAction<number[][]>>;
   setElectoralUnitsSeats: React.Dispatch<React.SetStateAction<number[]>>;
+  setElectoralUnitsThresholds: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   idx,
   seats,
+  threshold,
   numParties,
   votes,
   setVotes,
   setElectoralUnitsSeats,
+  setElectoralUnitsThresholds,
 }) => {
   const handleChangeVotes = useCallback(
     (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -42,9 +46,11 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
       <StyledTd>
         <ElectoralUnitHeader
           seats={seats}
+          threshold={threshold}
           idx={idx}
           setVotes={setVotes}
           setElectoralUnitsSeats={setElectoralUnitsSeats}
+          setElectoralUnitsThresholds={setElectoralUnitsThresholds}
         />
       </StyledTd>
       {new Array(numParties).fill(0).map((_, partyIdx) => (

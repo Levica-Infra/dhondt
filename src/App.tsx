@@ -7,6 +7,7 @@ import { PartyHeader } from "./components/partyHeader";
 import {
   INITIAL_NUM_ELECTORAL_UNITS,
   INITIAL_NUM_ELECTORAL_UNIT_SEATS,
+  INITIAL_THRESHOLD,
 } from "./constants/electoralUnits";
 import { INITIAL_PARTIES } from "./constants/parties";
 import { StyledTd, StyledTh, StyledTr } from "./styled/tables";
@@ -19,6 +20,9 @@ function App() {
       INITIAL_NUM_ELECTORAL_UNIT_SEATS
     )
   );
+  const [electoralUnitsThresholds, setElectoralUnitsThresholds] = useState<
+    number[]
+  >(new Array(INITIAL_NUM_ELECTORAL_UNITS).fill(INITIAL_THRESHOLD));
   const [votes, setVotes] = useState<number[][]>(
     new Array(INITIAL_NUM_ELECTORAL_UNITS).fill(
       new Array(INITIAL_PARTIES.length).fill(0)
@@ -58,10 +62,12 @@ function App() {
               <ElectoralUnit
                 idx={idx}
                 seats={electoralUnitsSeats[idx]}
+                threshold={electoralUnitsThresholds[idx]}
                 numParties={parties.length}
                 votes={votes}
                 setVotes={setVotes}
                 setElectoralUnitsSeats={setElectoralUnitsSeats}
+                setElectoralUnitsThresholds={setElectoralUnitsThresholds}
               />
               {!idx && <td rowSpan={votes.length}>&nbsp;</td>}
             </StyledTr>
@@ -69,7 +75,8 @@ function App() {
           <StyledTr>
             <StyledTd>
               <NewElectoralUnit
-                setElectoralUnitSeats={setElectoralUnitsSeats}
+                setElectoralUnitsSeats={setElectoralUnitsSeats}
+                setElectoralUnitsThresholds={setElectoralUnitsThresholds}
                 setVotes={setVotes}
               />
             </StyledTd>
