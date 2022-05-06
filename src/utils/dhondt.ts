@@ -1,9 +1,17 @@
-export const distributeSeats = (votes: number[], seats: number) =>
-  votes
+export const distributeSeats = (
+  votes: number[],
+  seats: number,
+  threshold: number
+) => {
+  const totalVotes = votes.reduce((acc, elem) => acc + elem, 0);
+  return votes
     .map((vote, partyIdx) =>
       new Array(seats)
         .fill(0)
-        .map((_, idx) => ({ quotient: vote / (idx + 1), partyIdx }))
+        .map((_, idx) => ({
+          quotient: vote / totalVotes >= threshold / 100 ? vote / (idx + 1) : 0,
+          partyIdx,
+        }))
     )
     .flat()
     .flat()
@@ -13,6 +21,7 @@ export const distributeSeats = (votes: number[], seats: number) =>
       acc[elem.partyIdx]++;
       return acc;
     }, new Array(votes.length).fill(0) as number[]);
+};
 
 export const calcTotalSeatsPerParty = (finalSeats: number[][]) => {
   if (!finalSeats.length) return [];

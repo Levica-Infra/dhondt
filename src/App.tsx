@@ -29,7 +29,11 @@ function App() {
     )
   );
   const finalSeats = votes.map((electoralUnitVotes, idx) =>
-    distributeSeats(electoralUnitVotes, electoralUnitsSeats[idx])
+    distributeSeats(
+      electoralUnitVotes,
+      electoralUnitsSeats[idx],
+      electoralUnitsThresholds[idx]
+    )
   );
   const totalSeatsPerParty = calcTotalSeatsPerParty(finalSeats);
 
