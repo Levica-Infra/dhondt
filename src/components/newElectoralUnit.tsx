@@ -27,9 +27,7 @@ export const NewElectoralUnit: FC<NewElectoralUnitProps> = ({
     []
   );
 
-  const addNewElectoralUnit = (
-    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const addNewElectoralUnit = () => {
     setElectoralUnitSeats((prev) => [...prev, newElectoralUnitSeats]);
     setVotes((prev) => [...prev, prev[0].map((_) => 0)]);
   };
@@ -41,6 +39,7 @@ export const NewElectoralUnit: FC<NewElectoralUnitProps> = ({
         isNumber={true}
         onChange={editNewElectoralUnitSeats}
         value={newElectoralUnitSeats}
+        maxValue={1000}
       />
       <IconButton
         color="success"
