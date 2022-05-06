@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { ElectoralUnit } from "./components/electoralUnit";
 import { NewElectoralUnit } from "./components/newElectoralUnit";
 import { NewParty } from "./components/newParty";
@@ -11,9 +11,6 @@ import {
 import { INITIAL_PARTIES } from "./constants/parties";
 import { StyledTd, StyledTh, StyledTr } from "./styled/tables";
 import { calcTotalSeatsPerParty, distributeSeats } from "./utils/dhondt";
-
-const MemoElectoralUnit = memo(ElectoralUnit);
-const MemoPartyHeader = memo(PartyHeader);
 
 function App() {
   const [parties, setParties] = useState<string[]>([...INITIAL_PARTIES]);
@@ -42,7 +39,7 @@ function App() {
             <th>&nbsp;</th>
             {parties.map((party, idx) => (
               <StyledTh key={idx}>
-                <MemoPartyHeader
+                <PartyHeader
                   party={party}
                   idx={idx}
                   setParties={setParties}
@@ -58,7 +55,7 @@ function App() {
         <tbody>
           {votes.map((_, idx) => (
             <StyledTr key={idx}>
-              <MemoElectoralUnit
+              <ElectoralUnit
                 idx={idx}
                 seats={electoralUnitsSeats[idx]}
                 numParties={parties.length}

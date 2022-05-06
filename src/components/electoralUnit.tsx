@@ -3,7 +3,6 @@ import { StyledTd } from "../styled/tables";
 import { ElectoralUnitHeader } from "./electoralUnitHeader";
 import { SimpleTextField } from "./simpleTextField";
 
-const MemoElectoralUnitHeader = memo(ElectoralUnitHeader);
 const MemoSimpleTextField = memo(SimpleTextField);
 
 interface ElectoralUnitProps {
@@ -41,7 +40,7 @@ export const ElectoralUnit: FC<ElectoralUnitProps> = ({
   return (
     <>
       <StyledTd>
-        <MemoElectoralUnitHeader
+        <ElectoralUnitHeader
           seats={seats}
           idx={idx}
           setVotes={setVotes}

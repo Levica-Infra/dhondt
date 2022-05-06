@@ -3,10 +3,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { IconButton, Typography } from "@mui/material";
-import { FC, memo, useCallback, useState } from "react";
+import { FC, useState } from "react";
 import { SimpleTextField } from "./simpleTextField";
-
-const MemoSimpleTextField = memo(SimpleTextField);
 
 interface PartyHeaderProps {
   party: string;
@@ -39,12 +37,11 @@ export const PartyHeader: FC<PartyHeaderProps> = ({
     setEditMode((prev) => !prev);
   };
 
-  const editPartyName = useCallback(
-    (evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      setPartyName(evt.target.value);
-    },
-    []
-  );
+  const editPartyName = (
+    evt: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    setPartyName(evt.target.value);
+  };
 
   const savePartyName = () => {
     setParties((prev) => [
@@ -57,7 +54,7 @@ export const PartyHeader: FC<PartyHeaderProps> = ({
 
   return editMode ? (
     <span>
-      <MemoSimpleTextField
+      <SimpleTextField
         label="Партија"
         isNumber={false}
         onChange={editPartyName}
